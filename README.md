@@ -28,7 +28,7 @@ Reference and baseline: [Training a Classifier](http://pytorch.org/tutorials/beg
 * lr = 0.001
 * momentum = 0.9
 * epoch = 20
-* WIDTH = {6, 12, 18}
+* WIDTH = {6, 12, 18, 24}
 
 
 ## Tuning the width of neural network
