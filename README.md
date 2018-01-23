@@ -86,6 +86,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 * momentum = 0.9
 * epoch = 20
 * (WIDTH_1, WIDTH_2) = {(1, 11), (3, 13), (6, 16), (12, 22), (18, 28), (24, 34), (30, 40)}
+
 Note that WIDTH_1 = WIDTH_2 - 10
 
 ## Experiment-2: Tuning the widths of neural network
