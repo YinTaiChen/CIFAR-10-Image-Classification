@@ -35,6 +35,7 @@ Reference and baseline: [Training a Classifier](http://pytorch.org/tutorials/beg
 
 Performance is measured by the accuracy(%) on 10,000 test images.
 
+||WIDTH|
 | Epoch | 6 | 12 | 18 |
 |---|---|---|---|
 |1|||39.15|
