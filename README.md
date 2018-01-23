@@ -57,3 +57,59 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|53.51|59.95|65.40|68.19|69.09|71.89|70.55|
 |19|54.36|58.21|64.92|68.23|69.32|71.53|71.19|
 |20|54.25|60.00|66.09|68.35|69.42|71.21|70.62|
+
+## Experiment-2: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.conv1 = nn.Conv2d(3, WIDTH_1, 5)
+            self.pool = nn.MaxPool2d(2, 2)
+            self.conv2 = nn.Conv2d(WIDTH_1, WIDTH_2, 5)
+            self.fc1 = nn.Linear(WIDTH_2 * 5 * 5, 120)
+            self.fc2 = nn.Linear(120, 84)
+            self.fc3 = nn.Linear(84, 10)
+
+        def forward(self, x):
+            x = self.pool(F.relu(self.conv1(x)))
+            x = self.pool(F.relu(self.conv2(x)))
+            x = x.view(-1, WIDTH_2 * 5 * 5)
+            x = F.relu(self.fc1(x))
+            x = F.relu(self.fc2(x))
+            x = self.fc3(x)
+            return x
+
+## Experiment-2: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+* (WIDTH_1, WIDTH_2) = {(1, 11), (3, 13), (6, 16), (12, 22), (18, 28), (24, 34), (30, 40)}
+
+## Experiment-2: Tuning the widths of neural network
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | (1,11) | (3,13) | (6,16) | (12,22) | (18,28) | (24,34) | (30,40) |
+|---|---|---|---|---|---|---|---|
+|1||||||||
+|2||||||||
+|3||||||||
+|4||||||||
+|5||||||||
+|6||||||||
+|7||||||||
+|8||||||||
+|9||||||||
+|10||||||||
+|11||||||||
+|12||||||||
+|13||||||||
+|14||||||||
+|15||||||||
+|16||||||||
+|17||||||||
+|18||||||||
+|19||||||||
+|20||||||||
