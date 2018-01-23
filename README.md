@@ -1,5 +1,5 @@
 # CIFAR 10 Image Classification
-Reference and baseline: [Training a Classifier](http://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html)
+Reference: [Training a Classifier](http://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html)
 
 ## Experiment-1: Architecture
 
