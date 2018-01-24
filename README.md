@@ -381,7 +381,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Dropout(),
                 nn.Linear(4096, 4096),
                 nn.ReLU(inplace=True),
-                nn.Linear(4096, num_classes),
+                nn.Linear(4096, 10),
             )
 
         def forward(self, x):
@@ -424,3 +424,83 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|35.63||||||74.73|
 |19|34.82||||||76.05|
 |20|36.43||||||76.77|
+
+## Experiment-8: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.features = nn.Sequential(
+                nn.Conv2d(3, 64, kernel_size=11, stride=1, padding=5),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+                nn.Conv2d(64, 192, kernel_size=5, padding=2),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(192, 192, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+                nn.Conv2d(192, 384, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(384, 384, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True)
+                nn.Conv2d(384, 256, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(256, 256, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(256, 256, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(256, 256, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True)
+                nn.MaxPool2d(kernel_size=2, stride=2),
+            )
+            self.classifier = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(256 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10),
+            )
+
+        def forward(self, x):
+            x = self.features(x)
+            x = x.view(x.size(0), 256 * 4 * 4)
+            x = self.classifier(x)
+            return x
+
+## Experiment-8: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-8: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
+|1|10.19|
+|2|9.96|
+|3|10.19|
+|4|10.12|
+|5|10.13|
+|6|10.04|
+|7|10.00|
+|8|10.00|
+|9|10.00|
+|10|10.08|
+|11|9.99|
+|12|10.37|
+|13|10.01|
+|14|10.00|
+|15|9.97|
+|16|10.00|
+|17|9.94|
+|18|10.11|
+|19|10.00|
+|20|9.91|
