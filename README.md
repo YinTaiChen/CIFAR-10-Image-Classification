@@ -635,7 +635,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.ReLU(inplace=True),
                 nn.Conv2d(8, 8, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
-                nn.Conv2d(8, 16, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(8, 16, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.Conv2d(16, 16, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
@@ -674,7 +674,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Dropout(),
                 nn.Linear(4096, 4096),
                 nn.ReLU(inplace=True),
-                nn.Linear(4096, 10),
+                nn.Linear(4096, 10)
             )
 
         def forward(self, x):
