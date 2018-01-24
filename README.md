@@ -698,48 +698,18 @@ Performance is measured by the accuracy(%) on 10,000 test images.
     class Net(nn.Module):
         def __init__(self):
             super(Net, self).__init__()
-            self.features = nn.Sequential(
-                nn.Conv2d(3, 729, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(729, 243, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(243, 81, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(81, 27, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(27, 9, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(9, 3, kernel_size=3, stride=1, padding=1),
+            self.feature_1 = nn.Sequential(
+                nn.Conv2d(3, 1, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 729, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(729, 243, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(243, 81, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(81, 27, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(27, 9, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(9, 3, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(3, 1, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 729, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(729, 243, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(243, 81, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(81, 27, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(27, 9, kernel_size=3, stride=1, padding=1),
-                nn.ReLU(inplace=True),
-                nn.Conv2d(9, 3, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(3, 1, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
-            self.classifier = nn.Sequential(
+            self.classifier_1 = nn.Sequential(
                 nn.Dropout(),
                 nn.Linear(3 * 4 * 4, 4096),
                 nn.ReLU(inplace=True),
@@ -748,11 +718,219 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.ReLU(inplace=True),
                 nn.Linear(4096, 10)
             )
+            self.feature_2 = nn.Sequential(
+                nn.Conv2d(3, 2, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 2, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 2, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_2 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(2 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_3 = nn.Sequential(
+                nn.Conv2d(3, 4, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 4, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 4, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_3 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(4 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_4 = nn.Sequential(
+                nn.Conv2d(3, 8, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 8, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 8, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_4 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(8 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_5 = nn.Sequential(
+                nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_5 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(16 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_6 = nn.Sequential(
+                nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_6 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(32 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_7 = nn.Sequential(
+                nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_7 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(64 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_8 = nn.Sequential(
+                nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_8 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(128 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_9 = nn.Sequential(
+                nn.Conv2d(3, 256, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 256, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 256, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_9 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(256 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.feature_10 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
+            )
+            self.classifier_10 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(512 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
 
         def forward(self, x):
-            x = self.features(x)
-            x = x.view(x.size(0), 3 * 4 * 4)
-            x = self.classifier(x)
+            x_1 = self.feature_1(x)
+            x_1 = x_1.view(x_1.size(0), 1 * 4 * 4)
+            x_1 = self.classifier_1(x_1)
+            x_2 = self.feature_2(x)
+            x_2 = x_2.view(x_2.size(0), 2 * 4 * 4)
+            x_2 = self.classifier_2(x_2)
+            x_3 = self.feature_3(x)
+            x_3 = x_3.view(x_3.size(0), 4 * 4 * 4)
+            x_3 = self.classifier_3(x_3)
+            x_4 = self.feature_4(x)
+            x_4 = x_4.view(x_4.size(0), 8 * 4 * 4)
+            x_4 = self.classifier_4(x_4)
+            x_5 = self.feature_5(x)
+            x_5 = x_5.view(x_5.size(0), 16 * 4 * 4)
+            x_5 = self.classifier_5(x_5)
+            x_6 = self.feature_6(x)
+            x_6 = x_6.view(x_6.size(0), 32 * 4 * 4)
+            x_6 = self.classifier_6(x_6)
+            x_7 = self.feature_7(x)
+            x_7 = x_7.view(x_7.size(0), 64 * 4 * 4)
+            x_7 = self.classifier_7(x_7)
+            x_8 = self.feature_8(x)
+            x_8 = x_8.view(x_8.size(0), 128 * 4 * 4)
+            x_8 = self.classifier_8(x_8)
+            x_9 = self.feature_9(x)
+            x_9 = x_9.view(x_9.size(0), 256 * 4 * 4)
+            x_9 = self.classifier_9(x_9)
+            x_10 = self.feature_10(x)
+            x_10 = x_10.view(x_10.size(0), 512 * 4 * 4)
+            x_10 = self.classifier_10(x_10)
+            x = (x_1+x_2+x_3+x_4+x_5+x_6+x_7+x_8+x_9+x_10)/10
             return x
 
 ## Experiment-11: Hyperparamters
