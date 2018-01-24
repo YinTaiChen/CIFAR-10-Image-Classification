@@ -702,16 +702,16 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 1, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 1, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(1, 1, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 1, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(1, 1, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
             self.classifier_1 = nn.Sequential(
                 nn.Dropout(),
-                nn.Linear(3 * 4 * 4, 4096),
+                nn.Linear(1 * 4 * 4, 4096),
                 nn.ReLU(inplace=True),
                 nn.Dropout(),
                 nn.Linear(4096, 4096),
@@ -722,10 +722,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 2, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 2, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(2, 2, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 2, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(2, 2, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -742,10 +742,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 4, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 4, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(4, 4, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 4, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(4, 4, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -762,10 +762,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 8, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 8, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(8, 8, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 8, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(8, 8, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -782,10 +782,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(16, 16, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(16, 16, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -802,10 +802,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 32, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(32, 32, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -822,10 +822,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 64, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -842,10 +842,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -862,10 +862,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 256, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 256, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 256, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
@@ -882,10 +882,10 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
-                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2, dilation=1)
             )
