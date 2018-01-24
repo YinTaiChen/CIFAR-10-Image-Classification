@@ -231,3 +231,63 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|47.56|55.18|62.84|70.37|72.02|75.25|76.02|
 |19|46.56|54.77|63.07|70.13|71.88|75.18|76.48|
 |20|47.62|54.52|63.84|71.19|72.74|74.52|76.90|
+
+## Experiment-5: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.conv1 = nn.Conv2d(3, WIDTH_1, 3, padding=1) 
+            self.pool = nn.MaxPool2d(2, 2)
+            self.conv2 = nn.Conv2d(WIDTH_1, WIDTH_2, 3, padding=1)
+            self.conv3 = nn.Conv2d(WIDTH_2, WIDTH_3, 3, padding=1)
+            self.conv4 = nn.Conv2d(WIDTH_3, WIDTH_4, 3, padding=1)
+            self.fc1 = nn.Linear(WIDTH_4 * 4 * 4, 120)
+            self.fc2 = nn.Linear(120, 84)
+            self.fc3 = nn.Linear(84, 10)
+
+        def forward(self, x):
+            x = F.relu(self.conv1(x))
+            x = self.pool(F.relu(self.conv2(x)))
+            x = self.pool(F.relu(self.conv3(x)))
+            x = self.pool(F.relu(self.conv4(x)))
+            x = x.view(-1, WIDTH_4 * 4 * 4)
+            x = F.relu(self.fc1(x))
+            x = F.relu(self.fc2(x))
+            x = self.fc3(x)
+            return x
+
+## Experiment-5: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+* (WIDTH_1, WIDTH_2, WIDTH_3, WIDTH_4) = {(1, 2, 4, 8), (2, 4, 8, 16), (4, 8, 16, 32), (8, 16, 32, 64), (16, 32, 64, 128), (32, 64, 128, 256), (64, 128, 256, 512)}
+
+## Experiment-5: Tuning the widths of neural network
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | (1,2,4,8) | (2,4,8,16) | (4,8,16,32) | (8,16,32,64) | (16,32,64,128) | (32,64,128,256) | (64,128,256,512) |
+|---|---|---|---|---|---|---|---|
+|1||||||||
+|2||||||||
+|3||||||||
+|4||||||||
+|5||||||||
+|6||||||||
+|7||||||||
+|8||||||||
+|9||||||||
+|10||||||||
+|11||||||||
+|12||||||||
+|13||||||||
+|14||||||||
+|15||||||||
+|16||||||||
+|17||||||||
+|18||||||||
+|19||||||||
+|20||||||||
