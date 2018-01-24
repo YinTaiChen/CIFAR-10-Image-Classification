@@ -353,3 +353,74 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|33.42|68.43|70.86|73.02|73.02|75.27|76.72|
 |19|35.99|67.97|72.50|71.66|72.95|75.91|77.38|
 |20|40.88|69.02|72.43|71.46|72.59|76.20|76.86|
+
+## Experiment-7: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.features = nn.Sequential(
+                nn.Conv2d(3, 64, kernel_size=11, stride=1, padding=5),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+                nn.Conv2d(64, 192, kernel_size=5, padding=2),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+                nn.Conv2d(192, 384, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(384, 256, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(256, 256, kernel_size=3, padding=1),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+            )
+            self.classifier = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(256 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, num_classes),
+            )
+
+        def forward(self, x):
+            x = self.features(x)
+            x = x.view(x.size(0), 256 * 4 * 4)
+            x = self.classifier(x)
+            return x
+
+## Experiment-7: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+* (WIDTH_1, WIDTH_2, WIDTH_3, WIDTH_4) = {(1,3,6,4), (2,6,12,8), (4,12,24,16), (8,24,48,32), (16,48,96,64), (32,96,192,128), (64,192,384,256)}
+
+## Experiment-7: Tuning the widths of neural network
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | (1,3,6,4) | (2,6,12,8) | (4,12,24,16) | (8,24,48,32) | (16,48,96,64) | (32,96,192,128) | (64,192,384,256) |
+|---|---|---|---|---|---|---|---|
+|1|16.86||||||22.39|
+|2|23.04||||||39.50|
+|3|27.14||||||48.57|
+|4|27.27||||||54.25|
+|5|30.16||||||58.65|
+|6|30.40||||||62.60|
+|7|31.30||||||65.27|
+|8|32.20||||||68.53|
+|9|32.53||||||71.33|
+|10|32.78||||||71.56|
+|11|32.97||||||73.37|
+|12|32.46||||||73.22|
+|13|33.78||||||75.29|
+|14|34.56||||||76.05|
+|15|35.89||||||76.65|
+|16|35.36||||||74.91|
+|17|36.22||||||76.65|
+|18|35.63||||||74.73|
+|19|34.82||||||76.05|
+|20|36.43||||||76.77|
