@@ -2102,7 +2102,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
             x_128_3 = self.features_6(x) + x + x_4_3 + x_8_3 + x_16_3 + x_32_3 + x_64_3
             x_256_3 = self.features_7(x) + x + x_4_3 + x_8_3 + x_16_3 + x_32_3 + x_64_3 + x_128_3
             x = self.features_8(x_256_3)    
-            x = x.view(v.size(0), 512 * 4 * 4)
+            x = x.view(x.size(0), 512 * 4 * 4)
             x = self.classifier(x)
             return x
 
