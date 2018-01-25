@@ -1,0 +1,281 @@
+[1,   500] loss: 1.533
+
+[1,  1000] loss: 1.182
+
+[1,  1500] loss: 1.042
+
+[1,  2000] loss: 0.975
+
+[1,  2500] loss: 0.899
+
+[1,  3000] loss: 0.877
+
+Accuracy of the network on the 10000 test images: 68.630 %
+
+[2,   500] loss: 0.718
+
+[2,  1000] loss: 0.700
+
+[2,  1500] loss: 0.681
+
+[2,  2000] loss: 0.663
+
+[2,  2500] loss: 0.660
+
+[2,  3000] loss: 0.624
+
+Accuracy of the network on the 10000 test images: 76.620 %
+
+[3,   500] loss: 0.478
+
+[3,  1000] loss: 0.485
+
+[3,  1500] loss: 0.493
+
+[3,  2000] loss: 0.462
+
+[3,  2500] loss: 0.481
+
+[3,  3000] loss: 0.473
+
+Accuracy of the network on the 10000 test images: 77.630 %
+
+[4,   500] loss: 0.296
+
+[4,  1000] loss: 0.286
+
+[4,  1500] loss: 0.295
+
+[4,  2000] loss: 0.309
+
+[4,  2500] loss: 0.329
+
+[4,  3000] loss: 0.315
+
+Accuracy of the network on the 10000 test images: 80.810 %
+
+[5,   500] loss: 0.150
+
+[5,  1000] loss: 0.153
+
+[5,  1500] loss: 0.177
+
+[5,  2000] loss: 0.168
+
+[5,  2500] loss: 0.175
+
+[5,  3000] loss: 0.186
+
+Accuracy of the network on the 10000 test images: 82.120 %
+
+[6,   500] loss: 0.077
+
+[6,  1000] loss: 0.068
+
+[6,  1500] loss: 0.072
+
+[6,  2000] loss: 0.078
+
+[6,  2500] loss: 0.081
+
+[6,  3000] loss: 0.082
+
+Accuracy of the network on the 10000 test images: 81.910 %
+
+[7,   500] loss: 0.034
+
+[7,  1000] loss: 0.031
+
+[7,  1500] loss: 0.027
+
+[7,  2000] loss: 0.027
+
+[7,  2500] loss: 0.029
+
+[7,  3000] loss: 0.028
+
+Accuracy of the network on the 10000 test images: 83.590 %
+
+[8,   500] loss: 0.011
+
+[8,  1000] loss: 0.011
+
+[8,  1500] loss: 0.011
+
+[8,  2000] loss: 0.013
+
+[8,  2500] loss: 0.011
+
+[8,  3000] loss: 0.013
+
+Accuracy of the network on the 10000 test images: 84.160 %
+
+[9,   500] loss: 0.006
+
+[9,  1000] loss: 0.006
+
+[9,  1500] loss: 0.006
+
+[9,  2000] loss: 0.005
+
+[9,  2500] loss: 0.005
+
+[9,  3000] loss: 0.005
+
+Accuracy of the network on the 10000 test images: 84.180 %
+
+[10,   500] loss: 0.004
+
+[10,  1000] loss: 0.004
+
+[10,  1500] loss: 0.004
+
+[10,  2000] loss: 0.003
+
+[10,  2500] loss: 0.003
+
+[10,  3000] loss: 0.003
+
+Accuracy of the network on the 10000 test images: 84.490 %
+
+[11,   500] loss: 0.002
+
+[11,  1000] loss: 0.003
+
+[11,  1500] loss: 0.003
+
+[11,  2000] loss: 0.002
+
+[11,  2500] loss: 0.002
+
+[11,  3000] loss: 0.002
+
+Accuracy of the network on the 10000 test images: 84.720 %
+
+[12,   500] loss: 0.002
+
+[12,  1000] loss: 0.002
+
+[12,  1500] loss: 0.002
+
+[12,  2000] loss: 0.002
+
+[12,  2500] loss: 0.002
+
+[12,  3000] loss: 0.002
+
+Accuracy of the network on the 10000 test images: 84.690 %
+
+[13,   500] loss: 0.002
+
+[13,  1000] loss: 0.002
+
+[13,  1500] loss: 0.002
+
+[13,  2000] loss: 0.002
+
+[13,  2500] loss: 0.001
+
+[13,  3000] loss: 0.002
+
+Accuracy of the network on the 10000 test images: 84.760 %
+
+[14,   500] loss: 0.002
+
+[14,  1000] loss: 0.002
+
+[14,  1500] loss: 0.002
+
+[14,  2000] loss: 0.001
+
+[14,  2500] loss: 0.001
+
+[14,  3000] loss: 0.002
+
+Accuracy of the network on the 10000 test images: 84.660 %
+
+[15,   500] loss: 0.001
+
+[15,  1000] loss: 0.001
+
+[15,  1500] loss: 0.001
+
+[15,  2000] loss: 0.001
+
+[15,  2500] loss: 0.001
+
+[15,  3000] loss: 0.001
+
+Accuracy of the network on the 10000 test images: 84.870 %
+
+[16,   500] loss: 0.001
+
+[16,  1000] loss: 0.001
+
+[16,  1500] loss: 0.001
+
+[16,  2000] loss: 0.001
+
+[16,  2500] loss: 0.001
+
+[16,  3000] loss: 0.001
+
+Accuracy of the network on the 10000 test images: 84.800 %
+
+[17,   500] loss: 0.001
+
+[17,  1000] loss: 0.001
+
+[17,  1500] loss: 0.001
+
+[17,  2000] loss: 0.001
+
+[17,  2500] loss: 0.001
+
+[17,  3000] loss: 0.001
+
+Accuracy of the network on the 10000 test images: 84.860 %
+
+[18,   500] loss: 0.001
+
+[18,  1000] loss: 0.001
+
+[18,  1500] loss: 0.001
+
+[18,  2000] loss: 0.001
+
+[18,  2500] loss: 0.001
+
+[18,  3000] loss: 0.001
+
+Accuracy of the network on the 10000 test images: 84.970 %
+
+[19,   500] loss: 0.001
+
+[19,  1000] loss: 0.001
+
+[19,  1500] loss: 0.001
+
+[19,  2000] loss: 0.001
+
+[19,  2500] loss: 0.001
+
+[19,  3000] loss: 0.001
+
+Accuracy of the network on the 10000 test images: 84.900 %
+
+[20,   500] loss: 0.001
+
+[20,  1000] loss: 0.001
+
+[20,  1500] loss: 0.001
+
+[20,  2000] loss: 0.001
+
+[20,  2500] loss: 0.001
+
+[20,  3000] loss: 0.001
+
+Accuracy of the network on the 10000 test images: 84.790 %
+
+Finished Training and Testing
