@@ -2035,27 +2035,27 @@ Performance is measured by the accuracy(%) on 10,000 test images.
         def __init__(self):
             super(Net, self).__init__()
             self.weights_32 = nn.Sequentail (
-                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True)
             )
             self.bias_32 == nn.Sequential(
-                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True)
             )
             self.features_16 = nn.Sequential(
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.weights_16 = nn.Sequential(
-                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.bias_16 = nn.Sequential(
-                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
@@ -2063,14 +2063,14 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.weights_8 = nn.Sequential(
-                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.bias_8 = nn.Sequential(
-                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
@@ -2078,19 +2078,19 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.weights_4 = nn.Sequential(
-                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.bias_4 = nn.Sequential(
-                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
-                nn.BatchNorm2d(512),
+                nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True),
                 nn.MaxPool2d(kernel_size=2, stride=2)
             )
             self.classifier = nn.Sequential(
-                nn.Linear(512 * 4 * 4, 4096),
+                nn.Linear(3 * 4 * 4, 4096),
                 nn.ReLU(inplace=True),
                 nn.Linear(4096, 10)
             )
@@ -2108,6 +2108,8 @@ Performance is measured by the accuracy(%) on 10,000 test images.
             weights_4 = self.weights_4(weights_8)
             bias_4 = self.bias_4(bias_8)
             x = weights_4 * x + bias_4
+            x = x.view(v.size(0), 3 * 4 * 4)
+            x = self.classifier(x)
             return x
 
 ## Experiment-22: Hyperparamters
