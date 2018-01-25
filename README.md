@@ -1212,7 +1212,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
                 nn.ReLU(inplace=True),
                 nn.Conv2d(64, 64, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
-                nn.MaxPoo2d(kernel_size=3, stride=1, padding=1),
+                nn.MaxPool2d(kernel_size=3, stride=1, padding=1),
                 nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
                 nn.ReLU(inplace=True),
                 nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
@@ -1278,3 +1278,140 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|74.47|
 |19|76.17|
 |20|76.58|
+|21|77.72|
+|22|78.75|
+|23|77.52|
+|24|78.05|
+|25|78.93|
+|26|78.68|
+|27|78.28|
+|28|79.59|
+|29|78.31|
+|30|79.34|
+|31|78.84|
+|32|78.78|
+|33|79.16|
+|34|79.61|
+|35|80.48|
+|36|80.76|
+|37|80.38|
+|38|79.56|
+|39|79.91|
+|40|80.60|
+
+## Experiment-14: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.features = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=17, stride=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=9, stride=1),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=5, stride=1),
+                nn.ReLU(inplace=True)
+            )
+            self.classifier = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(512 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+
+        def forward(self, x):
+            x = self.features(x)
+            x = x.view(x.size(0), 512 * 4 * 4)
+            x = self.classifier(x)
+            return x
+
+## Experiment-14: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-14: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
+|1|43.83|
+|2|52.31|
+|3|55.62|
+|4|56.91|
+|5|60.52|
+|6|61.63|
+|7|63.42|
+|8|62.03|
+|9|63.86|
+|10|64.25|
+|11|64.36|
+|12|64.18|
+|13|64.77|
+|14|64.29|
+|15|64.85|
+|16|64.45|
+|17|64.16|
+|18|63.90|
+|19|65.07|
+|20|64.67|
+
+## Experiment-15: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.pre_features = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+            )
+            self.features = nn.Sequential(
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+            )
+            self.post_features = nn.Sequential(
+                nn.AvgPool2d(kernel_size=2, stride=2)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(512 * 8 * 8, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+
+        def forward(self, x):
+            x_1 = self.pre_features(x)
+            x_2 = self.features(x_1) + x_1
+            x_3 = self.post_features(x_2)
+            x_4 = x_3.view(x_3.size(0), 512 * 8 * 8)
+            x = self.classifier(x_4)
+            return x
+
+## Experiment-15: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-15: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
