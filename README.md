@@ -1727,3 +1727,91 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |38|66.70|
 |39|66.53|
 |40|66.73|
+
+
+## Experiment-19: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.get_weight_1 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.get_bias_1 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.get_weight_2 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.get_bias_2 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.get_weight_3 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.get_bias_3 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(3 * 32 * 32, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+
+        def forward(self, x):
+            weight_1 = self.get_weight_1(x)
+            bias_1 = self.get_bias_1(x)
+            x_1 = weight_1 * x + bias_1
+            weight_2 = self.get_weight_2(x_1)
+            bias_2 = self.get_bias_2(x_1)
+            x_2 = weight_2 * x_1 + bias_2
+            weight_3 = self.get_weight_3(x_2)
+            bias_3 = self.get_weight_3(x_2)
+            x_3 = weight_3 * x_2 + bias_3
+            x_4 = x_3.view(x_3.size(0), 3 * 32 * 32)
+            x_5 = self.classifier(x_4)
+            return x_5
+
+## Experiment-19: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-19: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
