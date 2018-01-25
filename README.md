@@ -1064,3 +1064,100 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|30.83|
 |19|41.24|
 |20|49.26|
+
+## Experiment-12: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.conv1 = nn.Conv2d(3, 128, kernel_size=3, stride=1, padding=1)
+            self.conv2 = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
+            self.conv3 = nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1)
+            self.conv4 = nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1)
+            self.conv5 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
+            self.conv6 = nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1)
+            self.conv7 = nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1)
+            self.conv8 = nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1)
+            self.conv9 = nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1)
+            self.features_1 = nn.Sequential(
+                self.conv1,
+                nn.ReLU(inplace=True),
+                self.conv2,
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                self.conv4,
+                nn.ReLU(inplace=True),
+                self.conv5,
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                self.conv7,
+                nn.ReLU(inplace=True),
+                self.conv8,
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+            )
+            self.classifier_1 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(512 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+            self.features_2 = nn.Sequential(
+                self.conv1,
+                nn.ReLU(inplace=True),
+                self.conv2,
+                nn.ReLU(inplace=True),
+                self.conv3,
+                nn.ReLU(inplace=True),
+                self.conv4,
+                nn.Conv2d(128, 256, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True),
+                self.conv5,
+                nn.ReLU(inplace=True),
+                self.conv6,
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+                self.conv7,
+                nn.ReLU(inplace=True),
+                self.conv8,
+                nn.ReLU(inplace=True),
+                self.conv9,
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2, dilation=1),
+            )
+            self.classifier_2 = nn.Sequential(
+                nn.Dropout(),
+                nn.Linear(512 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Dropout(),
+                nn.Linear(4096, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+
+        def forward(self, x):
+            x_1 = self.features_1(x)
+            x_1 = x_1.view(x_1.size(0), 512 * 4 * 4)
+            x_1 = self.classifier_1(x_1)
+            x_2 = self.features(x_2)
+            x_2 = x_2.view(x_2.size(0), 512 * 4 * 4)
+            x_2 = self.classifier_2(x_2)
+            x = (x_1 + x_2) / 2
+            return x
+
+## Experiment-12: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-12: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
