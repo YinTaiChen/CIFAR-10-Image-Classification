@@ -2034,7 +2034,7 @@ Performance is measured by the accuracy(%) on 10,000 test images.
      class Net(nn.Module):
         def __init__(self):
             super(Net, self).__init__()
-            self.weights_32 = nn.Sequentail (
+            self.weights_32 = nn.Sequential (
                 nn.Conv2d(3, 3, kernel_size=3, stride=1, padding=1),
                 nn.BatchNorm2d(3),
                 nn.ReLU(inplace=True)
