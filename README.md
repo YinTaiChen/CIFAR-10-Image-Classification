@@ -1415,3 +1415,113 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 
 | Epoch | Performance |
 |---|---|
+|1|68.63|
+|2|76.62|
+|3|77.63|
+|4|80.81|
+|5|82.12|
+|6|81.91|
+|7|83.59|
+|8|84.16|
+|9|84.18|
+|10|84.49|
+|11|84.72|
+|12|84.69|
+|13|84.76|
+|14|84.66|
+|15|84.87|
+|16|84.80|
+|17|84.86|
+|18|84.97|
+|19|84.90|
+|20|84.79|
+
+## Experiment-16: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.layers_1 = nn.Sequential(
+                nn.Conv2d(3, 9, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(9),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(9, 3, kernel_size=1, stride=1)
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.layers_2 = nn.Sequential(
+                nn.Conv2d(3, 27, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(27),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(27, 3, kernel_size=1, stride=1)
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.layers_3 = nn.Sequential(
+                nn.Conv2d(3, 81, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(81),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(81, 3, kernel_size=1, stride=1)
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.layers_4 = nn.Sequential(
+                nn.Conv2d(3, 243, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(243),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(243, 3, kernel_size=1, stride=1)
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.layers_5 = nn.Sequential(
+                nn.Conv2d(3, 729, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(729),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(729, 3, kernel_size=1, stride=1)
+                nn.BatchNorm2d(3),
+                nn.ReLU(inplace=True)
+            )
+            self.layers_6 = nn.Sequential(
+                nn.Conv2d(3, 729, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(729),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+                nn.Conv2d(729, 729, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(729),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2),
+                nn.Conv2d(729, 729, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(729),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2, stride=2)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(729 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+
+        def forward(self, x):
+            x_1 = self.layers_1(x) + x
+            x_2 = self.layers_2(x_1) + x
+            x_3 = self.layers_3(x_2) + x
+            x_4 = self.layers_4(x_3) + x
+            x_5 = self.layers_5(x_4) + x
+            x_6 = self.layers_6(x_5)
+            x_7 = x_6.view(x_6.size(0), 729 * 4 * 4)
+            x_8 = self.classifier(x_7)
+            return x_8
+
+## Experiment-16: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-16: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
