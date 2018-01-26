@@ -2256,3 +2256,104 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 
 | Epoch | Performance |
 |---|---|
+
+## Experiment-24: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.features_16 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512)
+            )
+            self.downsample_16_to_8 = nn.Seqeuntial(
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.BatchNorm2d(512)
+            )
+            self.downsample_16_to_4 = nn.Seqeuntial(
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.BatchNorm2d(512)
+            )
+            self.downsample_16_to_2 = nn.Seqeuntial(
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.BatchNorm2d(512)
+            )
+            self.features_8 = nn.Sequential(
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512)
+            )
+            self.downsample_8_to_4 = nn.Seqeuntial(
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False).
+                nn.BatchNorm2d(512)
+            )
+            self.downsample_8_to_2 = nn.Seqeuntial(
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.BatchNorm2d(512)
+            )
+            self.features_4 = nn.Sequential(
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512),
+            )
+            self.downsample_4_to_2 = nn.Sequntial(
+                nn.Conv2d(512, 512, kernel_size=1, stride=2, bias=False),
+                nn.BatchNorm2d(512)
+            )
+            self.features_2 = nn.Sequential(
+                nn.Conv2d(512, 512, kernel_size=3, stride=1),
+                nn.BatchNorm2d(512)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(512 * 2 * 2, 10),
+            )
+
+        def forward(self, x):
+            x_16 = self.features_16(x)
+            x_16_8 = self.downsample_16_to_8(x_16)
+            x_16_4 = self.downsample_16_to_4(x_16)
+            x_16_2 = self.downsample_16_to_2(x_16)
+            x_8 = self.features_8(x_16) + x_16_8
+            x_8_4 = self.downsample_8_to_4(x_8)
+            x_8_2 = self.downsample_8_to_2(x_8)
+            x_4 = self.features_4(x_8) + x_16_4 + x_8_4
+            x_4_2 = self.downample_4_to_2(x_4)
+            x_2 = self.features_2(x_4) + x_16_2 + x_8_2 + x_4_2
+            x = x_2.view(x_2.size(0), 512 * 2 * 2)
+            x = self.classifier(x)
+            return x
