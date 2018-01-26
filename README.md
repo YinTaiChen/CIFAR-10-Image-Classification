@@ -2357,3 +2357,37 @@ Performance is measured by the accuracy(%) on 10,000 test images.
             x = x_2.view(x_2.size(0), 512 * 2 * 2)
             x = self.classifier(x)
             return x
+
+## Experiment-24: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-24: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
+|1|56.35|
+|2|61.69|
+|3|67.69|
+|4|71.03|
+|5|72.79|
+|6|74.73|
+|7|75.96|
+|8|75.91|
+|9|77.28|
+|10|77.40|
+|11|77.70|
+|12|77.54|
+|13|77.15|
+|14|77.97|
+|15|78.29|
+|16|78.19|
+|17|77.26|
+|18|77.79|
+|19|77.92|
+|20|78.27|
