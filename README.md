@@ -2139,3 +2139,104 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|86.31|
 |19|86.50|
 |20|86.30|
+
+## Experiment-23: Architecture
+
+     class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.conv1 = nn.Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+            self.bn1 = nn.BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True)
+            self.relu = nn.ReLU(inplace)
+            self.maxpool = nn.MaxPool2d(kernel_size=(2, 2), stride=(2, 2), dilation=(1, 1))
+            self.layer1 = nn.Sequential(
+                nn.Conv2d (64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True)
+                nn.Conv2d (64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True)
+            )
+            self.layer2 = nn.Sequential(
+                nn.Conv2d (64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True),
+                nn.Conv2d (128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True),
+            )
+            self.bylayer2 = nn.Sequential(
+                nn.Conv2d (64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False),
+                nn.BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True)
+            )
+            self.layer3 = nn.Sequential(
+                nn.Conv2d (128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True),
+                nn.Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True)
+            )
+            self.bylayer3 = nn.Sequential(
+                nn.Conv2d (128, 256, kernel_size=(1, 1), stride=(1, 1), bias=False),
+                nn.BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True)
+            )
+            self.layer4 = nn.Sequential(
+                nn.Conv2d (256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True),
+                nn.Conv2d (512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True),
+                nn.ReLU(inplace),
+                nn.Conv2d (512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False),
+                nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True)
+            )
+            self.bylayer4 = nn.Sequential(
+                nn.Conv2d (256, 512, kernel_size=(1, 1), stride=(1, 1), bias=False),
+                nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True)
+            )
+            self.avgpool = nn.AvgPool2d(kernel_size=2, stride=2, padding=0, ceil_mode=False, count_include_pad=True)
+            self.classifier = nn.Linear(512 * 8 * 8, 10)
+
+
+        def forward(self, x):
+            x = self.maxpool(self.relu(self.bn1(self.conv1(x))))
+            x_1 = self.layer1(x) + x
+            x_2_r = self.bylayer2(x_1)
+            x_2 = self.layer2(x_1) + x_2_r
+            x_3_r = self.bylayer3(x_2)
+            x_3 = self.layer3(x_2) + x_3_r
+            x_4_r = self.bylayer4(x_3)
+            x_4 = self.layer4(x_3) + x_4_r
+            x = self.avgpool(x_4)
+            x = x.view(x.size(0), 512 * 8 * 8)
+            x = x.classifier(x)
+            return x
+
+## Experiment-23: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-23: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
