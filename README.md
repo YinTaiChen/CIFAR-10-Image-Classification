@@ -2431,4 +2431,51 @@ Performance is measured by the accuracy(%) on 10,000 test images.
             x_4 = x_3.view(x_3.size(0), 512 * 8 * 8)
             x = self.classifier(x_4)
             return x
-   
+   
+# Experiment-26: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
+            self.recurrent_1 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3)
+            )
+            self.recurrent_2 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3)
+            )
+            self.recurrent_3 = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 3, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(3)
+            )
+            self.final_layers = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.AvgPool2d(kernel_size=2, stride=2)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(512 * 2 * 2, 10)
+            )
+
+        def forward(self, x):
+            x_1 = self.pool(self.recurrent_1(self.recurrent_1(x)))
+            x_2 = self.pool(self.recurrent_2(self.recurrent_2(x_1)))
+            x_3 = self.pool(self.recurrent_3(self.recurrent_3(x_2)))
+            x = self.final_layers(x_3)
+            x = x.view(x.size(0), 512 * 2 * 2)
+            x = self.classifier(x)
+            return x
