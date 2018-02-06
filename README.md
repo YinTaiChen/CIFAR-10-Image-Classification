@@ -2479,3 +2479,71 @@ Performance is measured by the accuracy(%) on 10,000 test images.
             x = x.view(x.size(0), 512 * 2 * 2)
             x = self.classifier(x)
             return x
+
+# Experiment-27: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.conv = nn.Sequential(
+                nn.Conv2d(3, 512, kernel_size=3, stride=1, padding=1),
+                nn.ReLU(inplace=True)
+            )
+            self.recurrent = nn.Sequential(
+                nn.Conv2d(512, 512, kernel_size=3, stride=2, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512)
+            )
+            self.classifier = nn.Sequential(
+                nn.Linear(512 * 4 * 4, 4096),
+                nn.ReLU(inplace=True),
+                nn.Linear(4096, 10)
+            )
+        def forward(self, x):
+            x = self.conv(x)
+            for _ in range(3):
+                x = self.recurrent(x)
+            x = x.view(x.size(0), 512 * 4 * 4)
+            x = self.classifier(x)
+            return x
+            
+## Experiment-27: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-27: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
+|1|63.60|
+|2|72.26|
+|3|76.58|
+|4|78.41|
+|5|78.83|
+|6|79.07|
+|7|80.06|
+|8|80.22|
+|9|81.04|
+|10|80.52|
+|11|81.15|
+|12|81.08|
+|13|81.06|
+|14|80.25|
+|15|81.39|
+|16|81.90|
+|17|81.78|
+|18|82.04|
+|19|81.84|
+|20|81.52|
