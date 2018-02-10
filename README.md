@@ -2547,3 +2547,86 @@ Performance is measured by the accuracy(%) on 10,000 test images.
 |18|82.04|
 |19|81.84|
 |20|81.52|
+
+# Experiment-28: Architecture
+
+    class Net(nn.Module):
+        def __init__(self):
+            super(Net, self).__init__()
+            self.feature_1 = nn.Sequential(
+                nn.Conv2d(3, 64, kernel_size=3, stride=2, padding=1),
+                nn.BatchNorm2d(64),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(64, 128, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(128),
+                nn.ReLU(inplace=True)
+            )
+            self.residual_1 = nn.Sequential(
+                nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(128),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(128, 128, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(128)
+            )
+            self.feature_2 = nn.Sequential(
+                nn.Conv2d(128, 256, kernel_size=3, stride=2, padding=1),
+                nn.BatchNorm2d(256),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(256, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True)
+            )
+            self.residual_2 = nn.Sequential(
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(512, 512, kernel_size=3, stride=1, padding=1),
+                nn.BatchNorm2d(512)
+            )
+            self.pool = nn.AvgPool2d(kernel_size=2, stride=2)
+            self.classifier = nn.Sequential(
+                nn.Linear(512 * 4 * 4, 10)
+            )
+        def forward(self, x):
+            x = self.feature_1(x)
+            x = self.residual_1(x) + x
+            x = self.feature_2(x)
+            x = self.residual_2(x) + x
+            x = self.pool(x)
+            x = x.view(x.size(0), 512 * 4 * 4)
+            x = self.classifier(x)
+            return x
+            
+## Experiment-28: Hyperparamters
+
+* batch_size = 16
+* lr = 0.001
+* momentum = 0.9
+* epoch = 20
+
+## Experiment-28: Result
+
+Performance is measured by the accuracy(%) on 10,000 test images.
+
+| Epoch | Performance |
+|---|---|
+|1|67.44|
+|2|73.84|
+|3|75.07|
+|4|77.42|
+|5|77.14|
+|6|78.10|
+|7|78.77|
+|8|78.49|
+|9|78.83|
+|10|79.15|
+|11|79.62|
+|12|80.16|
+|13|80.98|
+|14|81.46|
+|15|81.70|
+|16|82.26|
+|17|82.52|
+|18|82.77|
+|19|82.83|
+|20|82.72|
